@@ -1,5 +1,5 @@
 let today_text = document.querySelector(".time_now");
-let dayArr = ['Sunday ', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+let dayArr = ['Saturday', 'Sunday ', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 let monthArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 function dateNow() {
 	let today = new Date;
@@ -11,7 +11,7 @@ let showTime = setInterval(() => dateNow(), 100);
 
 //Появление проектов
 
-//Из-за того, что колонки flex-box'ов я расположил не парвильно, пришлось для каждого блока прописывать анимацию появления
+//Из-за того, что колонки flex-box'ов я расположил не правильно, пришлось для каждого блока прописывать анимацию появления
 
 //Появление права
 let hex_color = document.querySelector('.project_hexcolors');
