@@ -50,33 +50,3 @@ traslateBlock(pogoda_img, 'left');
 
 
 
-//конструктор
-
-let hex_div = `<div class="hex_colors_project_wrapper">
-		<div style="width:80%">Нажми на кнопку и фон страницы поменяется на случайный или введи нужный градиент сам</div>
-		<br>
-		<div class="hex_colors_project_current_color">background: linear-gradient(to right, #ffffff, #ffffff);</div>
-
-		<div class="hex_colors_project_inputs">
-			<input maxlength="6" class="hex_inp" type="text" placeholder="Например ffffff">
-			<input maxlength="6" class="hex_inp" type="text" placeholder="Например ffffff">
-		</div>
-
-		<div>
-			<button class="hex_colors_project_button">Сгенерировать</button>
-		</div>
-	</div>`;
-
-
-let project_place = document.querySelector('.project_place');
-
-let hex_color_button = document.querySelector('.project_hexcolors');
-hex_color_button.addEventListener('click', () => {
-	if(!(document.querySelector('.hex_colors_project_wrapper'))){
-		project_place.insertAdjacentHTML("beforebegin", hex_div);
-	}
-	else{
-		let current_block = document.querySelector('.hex_colors_project_wrapper');
-		current_block.remove();
-	}
-});

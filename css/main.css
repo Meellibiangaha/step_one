@@ -146,6 +146,10 @@ body{
 .project_place{
 	padding-bottom: 50px;
 }
+
+.display_none{
+	display: none;
+}
 /*Hex Colors*/
 .hex_colors_project_wrapper{
 	min-height: 800px;
@@ -202,7 +206,7 @@ body{
 }
 
 .calc_box{
-	width: 340px;
+	width: 380px;
 	height: 550px;
 	box-shadow: rgb(24 32 79 / 25%) 0px 40px 80px,
 	rgb(255 255 255 / 50%) 0px 0px 0px 0.5px inset;
@@ -221,11 +225,27 @@ body{
 
 }
 .calc_box_top_inputs_value{
-	margin-top: 40px;
+	overflow: auto;
+	height: 60%;
+	margin-top: 20px;
+	margin-left: 20px;
 	display: flex;
 	justify-content: flex-end;
+	word-break: break-all;
 }
+
+.calc_box_top_inputs_value::-webkit-scrollbar {
+	width: 5px;
+	height: 8px; /*пусть будет*/
+	border-radius: 9999px;
+}
+.calc_box_top_inputs_value::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+}
+
+
 .calc_box_top_result{
+	height: 40%;
 	margin-top: 10px;
 	font-size: 32px;
 	font-weight: 600;
@@ -245,13 +265,15 @@ body{
 
 .calc_box_bottom{
 	display: grid;
-    grid-gap: 3px;
+    grid-gap: 2px;
 
 }
 
 .calc_light_button{
 	background: rgba(2,14,39,.2);
 	padding: 15px 25px;
+	font-size: 22px;
+	color: #fff;
 	border: 2px solid transparent;
     cursor: pointer;
     transition-duration: 0.4s;
@@ -261,6 +283,8 @@ body{
 	background: rgba(2,14,39,.5);
 	text-align: center;
 	padding: 15px 25px;
+	font-size: 22px;
+	color: #fff;
 	border: 2px solid transparent;
     cursor: pointer;
     transition-duration: 0.4s;
