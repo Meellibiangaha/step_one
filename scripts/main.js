@@ -16,37 +16,15 @@ let showTime = setInterval(() => dateNow(), 200);
 
 //Появление права
 
-function traslateBlock(block, side){
-	if(side == 'left'){
-		block.style.transform = 'translate(-120%)';
-	}
-	else{
-		block.style.transform = 'translate(140%)';
-	}
-	block.style.opacity = 0;
-	setTimeout(()=>Object.assign(block.style, {
-		opacity: 1,
-		transform: "translate(0%)"
-	}),200);
+function traslateBlock(block){
+	block.classList.add('visible');
 }
 
-let hex_color = document.querySelector('.project_hexcolors');
-let calc_img = document.querySelector('.calc_img');
-let notes_img = document.querySelector('.notes_img');
-
-traslateBlock(hex_color, 'right');
-traslateBlock(calc_img, 'right');
-traslateBlock(notes_img, 'right');
+let left_side = document.querySelector('.left_side');
+let rigth_side_box = document.querySelector('.rigth_side');
 
 
-//Появление слева
-let carusel_img = document.querySelector('.carusel_img');
-let timer_img = document.querySelector('.timer_img');
-let pogoda_img = document.querySelector('.pogoda_img');
-
-traslateBlock(carusel_img, 'left');
-traslateBlock(timer_img, 'left');
-traslateBlock(pogoda_img, 'left');
-
+traslateBlock(left_side);
+traslateBlock(rigth_side_box);
 
 

@@ -38,7 +38,7 @@ let calculator_div = `<div class="calculator_project_wrapper">
     </div>`;
 
 
-
+let calc_img = document.querySelector(".calc_img");
 
 calc_img.addEventListener('click', () => {
 
@@ -55,7 +55,7 @@ calc_img.addEventListener('click', () => {
 });
 
 
-function buttonsBind(nodeList, place) {
+function buttonsBind(nodeList, place) { // when we click on a number
 
     for(let calc_button of nodeList){
         if(calc_button.textContent.match(/[0-9]/)){
@@ -79,8 +79,11 @@ function buttonsBind(nodeList, place) {
         else if(calc_button.textContent.match(/[\/x\-+%]/)){
             calc_button.addEventListener('click', calcOperator);
         }
+        else if(calc_button.textContent.match(/[\=]/)){
+            calc_button.addEventListener('click', calc);
+        }
         else if(calc_button.textContent.match(/[.]/)){
-            
+            //[0-9]*[.][0-9]$
         }
     }
 }
@@ -102,4 +105,37 @@ function calcOperator() {
     else{
         display.textContent += this.textContent;
     }
+}
+
+function calc(){
+    let calc_text = document.querySelector(".calc_box_top_inputs_value").textContent;
+    calc_text = calc_text.split('');
+    let calc_array = [];
+    let current_element = '';
+     for(let elem of calc_text){
+        if(elem.match(/[\/x\-+%]/)){
+            if(elem.match(/\x/)){
+                elem = '*';
+            }
+            calc_array.push(+current_element);
+            calc_array.push(elem);
+            current_element = '';
+        }
+        else if(elem.match(/[0-9.]/)){
+            current_element += elem;
+        }
+     }
+    calc_array.push(+current_element); //т.к пуш только при нахождении оператора (костыль, да)
+    current_element = '';
+
+    let value = 0;
+    let current_value = 0;
+    for(let elem of calc_array){
+        console.log(elem);
+        if(elem.test(/[\/x\-+%]/)){
+           current_element += `${calc_array.indexOf(elem - 1)} ${elem} ${calc_array.indexOf(elem + 1)}`;
+           console.log(current_element);
+        }
+    }
+    console.log(calc_array);
 }
