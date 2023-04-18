@@ -88,8 +88,19 @@ function task_done(){
     let done_svg = `<svg class = "svg_Done" xmlns="http://www.w3.org/2000/svg" height="38" viewBox="0 96 960 960" width="38">
 	<path class = "done_svg_fill" d="M294 814 70 590l43-43 181 181 43 43-43 43Zm170 0L240 590l43-43 181 181 384-384 43 43-427 427Zm0-170-43-43 257-257 43 43-257 257Z"/>
 </svg>`;
-    do_svg.remove();
-    done_svg_place.insertAdjacentHTML('afterbegin', done_svg);
+console.log(do_task_galochka_place.querySelector('.task_done_galochka').children);
+do_task_galochka_place.children[0] = done_svg;
+console.log('reset brach');
+    // do_svg.remove();
+    // done_svg_place.insertAdjacentHTML('afterbegin', done_svg);
+    // let done_svg_btn = done_svg_place.querySelectorAll('.svg_Done');
+    // for(let el of done_svg_btn){
+    //     el.addEventListener('click', task_toDO);
+    // }???
+}
+
+function toDo(){
+    
 }
 
 function findAncestor (el, cls) {
