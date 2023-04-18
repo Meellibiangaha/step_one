@@ -7,7 +7,7 @@ function dateNow() {
 	let today = new Date;
 	//добавляю '0', если минуты/секунды < 10, чтобы выглядело красиво "09:05"
 	let hoursAndMinutes = `${(today.getHours() < 10)? `0${today.getHours()}`: today.getHours()}:${(today.getMinutes() < 10)? `0${today.getMinutes()}`: today.getMinutes()}`;
-	today_text.textContent = `${monthArr[today.getMonth()]} ${dayArr[today.getDate()]} ${hoursAndMinutes}`;
+	today_text.textContent = `${monthArr[today.getMonth()]} ${dayArr[today.getDay()-1]} ${hoursAndMinutes}`;
 }
 
 let showTime = setInterval(() => dateNow(), 200);
