@@ -1,0 +1,103 @@
+/*Carusel*/
+
+.carusel_project_wrapper {
+    min-height: 800px;
+    padding: 100px;
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #291236;
+}
+
+
+.carusel {
+    position: relative;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.carusel img {
+    display: block;
+    user-select: none;
+}
+
+.carusel_window {
+    position: relative;
+    overflow: hidden;
+}
+
+.carusel_photki {
+    width: 1295px;
+    overflow: hidden;
+
+}
+
+.carusel_item_li {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.carusel_photki ul {
+    width: 9999px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transition: margin-left 400ms;
+    font-size: 0;
+}
+
+.carusel_photki li {
+    display: inline-block;
+}
+
+.item_prev {
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    rotate: 45deg;
+    padding: 9px;
+}
+
+.item_next {
+    right: 10px;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    rotate: -45deg;
+    padding: 9px;
+}
+
+.item_prev{
+	transition-duration: 0.3s;
+	border: 4px solid #c1a6d1;
+	transition-duration: 0.3s;
+}
+.item_next{
+	transition-duration: 0.3s;
+	border: 4px solid #c1a6d1;
+	transition-duration: 0.3s;
+}
+
+.item_prev:hover{
+	box-shadow: 0 0 .1rem #fff,
+              0 0 .1rem #fff,
+              0 0 .1rem #c1a6d1,
+              0 0 .6rem #c1a6d1,
+              0 0 1rem #c1a6d1,
+              inset 0 0 1.1rem #c1a6d1;
+}
+.item_next:hover{
+	box-shadow: 0 0 .1rem #fff,
+              0 0 .1rem #fff,
+              0 0 .1rem #c1a6d1,
+              0 0 .6rem #c1a6d1,
+              0 0 1rem #c1a6d1,
+              inset 0 0 1.1rem #c1a6d1;
+}
