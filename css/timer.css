@@ -1,0 +1,44 @@
+/* Timer */
+
+.timer_wrapper{
+    min-height: 800px;
+    padding: 100px;
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #291236;
+}
+
+.timer_input{
+    padding: 10px;
+}
+.timer_input_hours,
+.timer_input_minutes,
+.timer_input_seconds {
+    width: 120px;
+    font-size: 30px;
+    text-align: center;
+}
+.time{
+    width: 50%;
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 44px;
+}
+.buttons{
+    padding-top: 20px;
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+}
+.timer_buttons{
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 40%;
+    font-size: 24px;
+    cursor: pointer;
+}
