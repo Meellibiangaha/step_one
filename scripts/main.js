@@ -1,4 +1,3 @@
-
 //Показывать текущую дату и время
 let today_text = document.querySelector(".time_now");
 let dayArr = ['Saturday', 'Sunday ', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -26,5 +25,3 @@ let rigth_side_box = document.querySelector('.rigth_side');
 
 traslateBlock(left_side);
 traslateBlock(rigth_side_box);
-
-

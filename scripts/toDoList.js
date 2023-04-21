@@ -39,15 +39,15 @@ toDO_img.addEventListener('click', () => {
         let current_block = document.querySelector('.toDoList_project_wrapper');
         current_block.remove();
     }
-    
+
     let todo_tasks = document.querySelector('.todo_tasks');
     todo_tasks.addEventListener('click', filter_toDo_task);
 
     let done_tasks = document.querySelector('.done_tasks');
-    todo_tasks.addEventListener('click', filter_done_tasks);
+    done_tasks.addEventListener('click', filter_done_tasks);
 
     let all_tasks = document.querySelector('.all_tasks');
-    todo_tasks.addEventListener('click', filter_all_tasks);
+    all_tasks.addEventListener('click', filter_all_tasks);
 });
 
 function create_task() {
@@ -73,33 +73,55 @@ function create_task() {
             d="m249 849-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
     </svg>
 </div>`;
-    let task_place = document.querySelector('.task_place_div');
-    task_place.insertAdjacentHTML('beforebegin', task_div);
-    task_text.value = '';
 
-    let task_do_btn = document.querySelectorAll('.svg_toDo');
-    for (let el of task_do_btn) {
-        el.addEventListener('click', task_done);
+    //проверка на пустоту input
+    if (task_text.value.replace(/^\s+|\s+$|\s+(?=\s)/g, "").length == 0) {
+        task_text.classList.add('input_invalid');
+        task_text.focus();
+        task_text.value = '';
+        return;
     }
+    else {
+        let task_place = document.querySelector('.task_place_div');
+        task_place.insertAdjacentHTML('beforebegin', task_div);
+        task_text.value = '';
 
-    let task_done_btn = document.querySelectorAll('.svg_Done');
-    for (let el of task_done_btn) {
-        el.addEventListener('click', task_done);
+        let task_do_btn = document.querySelectorAll('.svg_toDo');
+        for (let el of task_do_btn) {
+            el.addEventListener('click', task_done);
+        }
+
+        let task_done_btn = document.querySelectorAll('.svg_Done');
+        for (let el of task_done_btn) {
+            el.addEventListener('click', task_done);
+        }
+
+        let task_delete_btns = document.querySelectorAll('.svg_delete_task');
+        for (let el of task_delete_btns) {
+            el.addEventListener('click', delete_task);
+        }
+        let tasks = document.querySelectorAll('.task');
+        let task = tasks[tasks.length - 1];
+        do_task_arr.push(task);
+
+        //на случай, если изначально пытались пустой input подать
+        if (task_text.classList.contains('input_invalid')) {
+            task_text.classList.remove('input_invalid');
+        }
     }
-
-    let task_delete_btns = document.querySelectorAll('.svg_delete_task');
-    for (let el of task_delete_btns) {
-        el.addEventListener('click', delete_task);
-    }
-
-    let tasks = document.querySelectorAll('.task');
-    let task = tasks[tasks.length - 1];
-    do_task_arr.push(task);
 
 }
 
 function delete_task() {
     let parent = findAncestor(this, 'task');
+    if (done_task_arr.includes(parent)) {
+        let task_index = done_task_arr.indexOf(parent);
+        done_task_arr.splice(task_index, 1);
+    }
+    else {
+        let task_index = do_task_arr.indexOf(parent);
+        do_task_arr.splice(task_index, 1);
+    }
     parent.remove();
 }
 
@@ -108,7 +130,7 @@ let done_task_arr = [];
 let do_task_arr = [];
 
 //меняем галочку Done/Do
-//заносим в массивы toDo/do tasks
+
 function task_done() {
     let do_task_galochka_place = findAncestor(this, 'task');
     let do_svg = do_task_galochka_place.querySelector('.svg_toDo');
@@ -118,29 +140,48 @@ function task_done() {
         do_svg.classList.add('galochka_diplay');
         done_svg.classList.remove('galochka_diplay');
 
-
-        // удаляем из toDo добавляем в done
-        let task_index = do_task_arr.indexOf(do_task_galochka_place);
-        do_task_arr.splice(task_index, task_index);
-        done_task_arr.push(do_task_galochka_place);
-
-
+        addToArray(do_task_galochka_place, 'done');
 
     }
     else {
         do_svg.classList.remove('galochka_diplay');
         done_svg.classList.add('galochka_diplay');
 
-        let task_index = done_task_arr.indexOf(do_task_galochka_place);
-        done_task_arr.splice(task_index, task_index);
-        do_task_arr.push(do_task_galochka_place);
+        addToArray(do_task_galochka_place, 'toDo');
     }
 
-    console.log("DONE");
-    console.log(done_task_arr);
-    console.log('---------------');
-    console.log("TODO");
-    console.log(do_task_arr);
+}
+
+//заносим в массивы toDo/done tasks
+function addToArray(task_div, array) {
+    if (array == 'toDo') {
+        if (done_task_arr.includes(task_div)) {
+            let task_index = done_task_arr.indexOf(task_div);
+            done_task_arr.splice(task_index, 1);
+        }
+        if (do_task_arr.includes(task_div)) {
+            return;
+        }
+        else {
+            do_task_arr.push(task_div);
+        }
+
+    }
+
+    if (array == 'done') {
+        if (do_task_arr.includes(task_div)) {
+            let task_index = do_task_arr.indexOf(task_div);
+            do_task_arr.splice(task_index, 1);
+        }
+        if (done_task_arr.includes(task_div)) {
+            return;
+        }
+        else {
+            done_task_arr.push(task_div);
+        }
+
+    }
+
 }
 
 function findAncestor(el, cls) {
@@ -151,39 +192,55 @@ function findAncestor(el, cls) {
 
 
 function filter_toDo_task() {
-    debugger
     let allTask_arr = do_task_arr.concat(done_task_arr);
     allTask_arr.filter((elem) => {
-        if(do_task_arr.includes(elem)){
-            if(elem.classList.contains('galochka_diplay')){
+        if (do_task_arr.includes(elem)) {
+            if (elem.classList.contains('galochka_diplay')) {
                 elem.classList.remove('galochka_diplay');
             }
         }
-        else{
+        else {
             elem.classList.add('galochka_diplay');
         }
     });
-}
+    let current_active_div = document.querySelector('.info_about_task_filter_active');
+    current_active_div.classList.remove('info_about_task_filter_active');
 
+    let toDo_div = document.querySelector('.todo_tasks');
+    toDo_div.classList.add('info_about_task_filter_active');
+
+
+}
+//просто по другому реализовал итерацию
 function filter_done_tasks() {
     let allTask_arr = do_task_arr.concat(done_task_arr);
-    allTask_arr.filter((elem) => {
-        if(done_task_arr.includes(elem)){
-            if(elem.classList.contains('galochka_diplay')){
-                elem.classList.remove('galochka_diplay');
-            }
+    for (let i = 0; i < allTask_arr.length; i++) {
+        if (done_task_arr.includes(allTask_arr[i])) {
+            allTask_arr[i].classList.remove('galochka_diplay');
         }
-        else{
-            elem.classList.add('galochka_diplay');
+        else {
+            allTask_arr[i].classList.add('galochka_diplay');
         }
-    });
+    }
+    let current_active_div = document.querySelector('.info_about_task_filter_active');
+    current_active_div.classList.remove('info_about_task_filter_active');
+
+    let done_div = document.querySelector('.done_tasks');
+    done_div.classList.add('info_about_task_filter_active');
+
 }
 
 function filter_all_tasks() {
     let allTask_arr = do_task_arr.concat(done_task_arr);
     allTask_arr.filter((elem) => {
-            if(elem.classList.contains('galochka_diplay')){
-                elem.classList.remove('galochka_diplay');
-            }
+        if (elem.classList.contains('galochka_diplay')) {
+            elem.classList.remove('galochka_diplay');
+        }
     });
+
+    let current_active_div = document.querySelector('.info_about_task_filter_active');
+    current_active_div.classList.remove('info_about_task_filter_active');
+
+    let alltask_div = document.querySelector('.all_tasks');
+    alltask_div.classList.add('info_about_task_filter_active');
 }
